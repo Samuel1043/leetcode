@@ -3,33 +3,65 @@ import sys
 from unionfind import Unionfind
 
 def solve(board: List[List[str]]) -> None:
-    directions=[[0,1],[0,-1],[1,0],[-1,0]]
+    # directions=[[0,1],[0,-1],[1,0],[-1,0]]
+    # n_row=len(board)
+    # n_col=len(board[0])
+    # # border will union to dummy
+    # dummy=n_row*n_col
+    # # weighted quick union with path compression
+    # un=Unionfind(dummy+1)
+
+    # for i in range(n_row):
+    #     for j in range(n_col):
+    #         if board[i][j]=='O':
+    #             pos=i*n_col+j
+    #             if (i==0 or i==n_row-1 or j==0 or j==n_col-1):
+    #                 un.union(pos,dummy)
+    #             else:
+    #                 for way in directions:
+    #                     newi,newj=i+way[0],j+way[1]
+    #                     if board[newi][newj]=='O':
+    #                         newpos=newi*n_col+newj
+    #                         un.union(pos,newpos)
+    # for i in range(n_row):
+    #     for j in range(n_col):
+    #         pos=i*n_col+j
+    #         if board[i][j]=='O' and not un.connected(pos,dummy):
+    #             board[i][j]='X'
+    # return board
+
+
+    # DFS 
+    
     n_row=len(board)
     n_col=len(board[0])
-    # border will union to dummy
-    dummy=n_row*n_col
-    # weighted quick union with path compression
-    un=Unionfind(dummy+1)
+    directions=[[0,1],[0,-1],[1,0],[-1,0]]
+
+    def dfs(pos):
+        if board[pos[0]][pos[1]]=='X' or pos[0]<=0 or pos[1]<=0 or pos[0]>=n_row-1 or pos[1]>=n_col-1:
+            return 
+        if board[pos[0]][pos[1]]=='*':
+            return
+        if board[pos[0]][pos[1]]=='O':
+            board[pos[0]][pos[1]]='*'
+        for way in directions:
+            newpos=[pos[0]+way[0],pos[1]+way[1]]
+            dfs(newpos)
+
 
     for i in range(n_row):
         for j in range(n_col):
+            if i==0 or j==0 or i==n_row-1 or j==n_col-1:
+                if board[i][j]=='O':
+                    board[i][j]='*'
+                dfs([i,j])
+    for i in range(n_row):
+        for j in range(n_col):
+            if board[i][j]=='*':
+                board[i][j]='O'
             if board[i][j]=='O':
-                pos=i*n_col+j
-                if (i==0 or i==n_row-1 or j==0 or j==n_col-1):
-                    un.union(pos,dummy)
-                else:
-                    for way in directions:
-                        newi,newj=i+way[0],j+way[1]
-                        if board[newi][newj]=='O':
-                            newpos=newi*n_col+newj
-                            un.union(pos,newpos)
-    for i in range(n_row):
-        for j in range(n_col):
-            pos=i*n_col+j
-            if board[i][j]=='O' and not un.connected(pos,dummy):
                 board[i][j]='X'
-    return board
-
+    print(board)
 
     # quick union runtime exception
     # connected_sets=[]

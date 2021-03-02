@@ -1,3 +1,4 @@
+from typing import *
 def sortArrayByParity(self, A: List[int]) -> List[int]:
     N=len(A)
     i=0
