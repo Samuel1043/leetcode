@@ -10,7 +10,7 @@ class Solution:
         if not root:
             return []
         
-        q=collections.deque([(0,root)])
+        q=deque([(0,root)])
         prev_node=root
         prev_level=0
         res=[]
