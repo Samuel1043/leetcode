@@ -3,7 +3,7 @@ class Solution:
     def singleNumber(self, nums: List[int]) -> int:
         cur=0
         for num in nums:
-            cur=num ^ cur    
+            cur=num ^ cur
         return cur
 
 if __name__ =='__main__':

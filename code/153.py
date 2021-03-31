@@ -1,11 +1,11 @@
 from typing import *
 class Solution:
     def findMin(self, nums: List[int]) -> int:
-        
+
         N=len(nums)
         start=0
         end=N-1
-        
+
         while start<end:
             mid=(start+end)//2
             if nums[mid]>nums[end]:

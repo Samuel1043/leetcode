@@ -27,21 +27,21 @@ def networkDelayTime(times: List[List[int]], n: int, k: int) -> int:
         #   get the short path from pq
         cur_dist, node = heapq.heappop(pq)
         vis[node] = True
-    #   if vertice exist edge
+        # if vertice exist edge
         if adj[node]:
-            #        iter over vertice's connected vertice
+            # iter over vertice's connected vertice
             for edge, w in adj[node]:
-                #           if vertice visited pass
+                # if vertice visited pass
                 if vis[edge]:
                     continue
-    #             the path sum for next vertice
+                # the path sum for next vertice
                 cur_dist = dist[node]+w
-    # store the shortest path for connected vertice
+                # store the shortest path for connected vertice
                 if cur_dist < dist[edge]:
                     dist[edge] = cur_dist
                     heapq.heappush(pq, (cur_dist, edge))
                     path[node]=edge
-    
+
     optimal_path=[k]
     walk=path[k-1]
 
